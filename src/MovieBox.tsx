@@ -2,15 +2,14 @@ import React, {FC} from 'react';
 import { Movie } from './Movie';
 
 const MovieBox:FC<Movie> = (props)=>{
-    if (props.date.toDateString() === "Fri Feb 03 1111"){
-        return (
-            <div className="movie">
-                <h1>Wait a minute...</h1>
-                <h2>{props.name}</h2>
-                <h3>🎉YAY!</h3>
-            </div>
+    const clearWatched = ()=>{
+        localStorage.setItem(
+            'watched',
+            '[]'
         );
-    }
+
+        window.location.reload();
+    };
 
     const setWatched = ()=>{
         var oldList:string[] = JSON.parse(localStorage.getItem('watched') || '[]');
@@ -27,6 +26,17 @@ const MovieBox:FC<Movie> = (props)=>{
 
         window.location.reload();
     };
+
+    if (props.date.toDateString() === "Fri Feb 03 1111"){
+        return (
+            <div className="movie">
+                <h1>Wait a minute...</h1>
+                <h2>{props.name}</h2>
+                <h3>🎉 YAY!</h3>
+                <button onClick={()=>clearWatched()}>Clear Watched List</button>
+            </div>
+        );
+    }
 
     return (
         <div className="movie">
